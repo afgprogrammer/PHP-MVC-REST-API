@@ -41,9 +41,9 @@ class Controller {
             if (class_exists($model))
                 return new $model;
             else 
-                return nall;
+                throw new Exception(sprintf('{ %s } this model class not found', $model));
         } else {
-            return nall;
+            throw new Exception(sprintf('{ %s } this model file not found', $file));
         }
     }
 
