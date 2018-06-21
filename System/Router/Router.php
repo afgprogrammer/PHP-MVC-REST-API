@@ -203,7 +203,7 @@ class Router {
             require_once($file);
 
             // controller class
-            $controller = ucfirst($part[0]) . 'Controller';
+            $controller = 'Controllers' . ucfirst($part[0]);
 
             if (class_exists($controller)) {
                 $controller = new $controller();
