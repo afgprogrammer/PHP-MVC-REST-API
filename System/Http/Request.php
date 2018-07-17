@@ -60,17 +60,30 @@ class Request {
      *  Get POST parameter
      *
      * @param String $key
-     * @return string
+     * 
      */
-    public function input($key) {
-        if ($key != '') {
-            $postdata = file_get_contents("php://input");
-            $request = json_decode($postdata, true);
+    public function input(String $key = '') {
+        $postdata = file_get_contents("php://input");
+        $request = json_decode($postdata, true);
 
+        if ($key != '') {
             return isset($request[$key]) ? $this->clean($request[$key]) : null;
         } 
 
-        return $this->clean($request);
+        return ($request);
+    }
+	
+	/**
+     *  Get $_POST parameter
+     *
+     * @param String $key
+     * 
+     */
+    public function post(String $key = '') {
+        if ($key != '')
+            return isset($_POST[$key]) ? $this->clean($_POST[$key]) : null;
+
+        return  $this->clean($_POST);
     }
 
     /**
