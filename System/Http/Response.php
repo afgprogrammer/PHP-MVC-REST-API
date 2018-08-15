@@ -2,7 +2,7 @@
 
 /**
  *
- * This file is part of simple-mvc-rest-api for PHP.
+ * This file is part of mvc-rest-api for PHP.
  *
  */
 namespace Http;

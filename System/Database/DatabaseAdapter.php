@@ -2,12 +2,20 @@
 
 /**
  *
- * This file is part of simple-mvc-rest-api for PHP.
+ * This file is part of mvc-rest-api for PHP.
  *
  */
 namespace Database;
 
+/**
+ * Class DatabaseAdapter for handel database query
+ *
+ * @author Mohammad Rahmani <rto1680@gmail.com>
+ *
+ * @package Database
+ */
 class DatabaseAdapter {
+    
     /**
      *  Database Connection
      *

@@ -2,11 +2,18 @@
 
 /**
  *
- * This file is part of simple-mvc-rest-api for PHP.
+ * This file is part of mvc-rest-api for PHP.
  *
  */
 namespace Router;
 
+/**
+ * Class Router For Handel Router
+ *
+ * @author Mohammad Rahmani <rto1680@gmail.com>
+ *
+ * @package Router
+ */
 class Router {
 
     /**
@@ -53,7 +60,7 @@ class Router {
      *  constaruct
      */
     public function __construct(string $url, string $method) {
-        $this->url = $url;
+        $this->url = rtrim($url, '/');
         $this->method = $method;
 
         // get response class of $GLOBALS var
@@ -72,6 +79,13 @@ class Router {
      */
     public function post($pattern, $callback) {
         $this->addRoute('POST', $pattern, $callback);
+    }
+
+    /**
+     *  set put request http method for route
+     */
+    public function put($pattern, $callback) {
+        $this->addRoute('PUT', $pattern, $callback);
     }
 
     /**
@@ -160,14 +174,6 @@ class Router {
         return '(?P<' . $key . '>[a-zA-Z0-9_\-\.\!\~\*\\\'\(\)\:\@\&\=\$\+,%]+)';
     }
 
-    protected function trimeRoute($route) {
-        return ltrim($route, '/');
-    }
-
-    protected function trimeUrl($route) {
-        return rtrim($route, '/');
-    }
-
     /**
      *  run application
      */
@@ -179,16 +185,13 @@ class Router {
         $this->getMatchRoutersByPattern($this->matchRouter);
 
         if (!$this->matchRouter || empty($this->matchRouter)) {
-            $this->response->sendStatus(404);
-            $this->response->setContent(['error' => 'Sorry This Route Not Found !', 'status_code' => 404]);
-        } else {
-
-            // cal to callback method
-            if (is_callable($this->matchRouter[0]->getCallback())) {
+			$this->sendNotFound();        
+		} else {
+            // call to callback method
+            if (is_callable($this->matchRouter[0]->getCallback()))
                 call_user_func($this->matchRouter[0]->getCallback(), $this->params);
-            } else {
+            else
                 $this->runController($this->matchRouter[0]->getCallback(), $this->params);
-            }
         }
     }
 
@@ -196,29 +199,27 @@ class Router {
      * run as controller
      */
     private function runController($controller, $params) {
-        $part = explode('@', $controller);
-        $file = CONTROLLERS . ucfirst($part[0]) . '.php';
+        $parts = explode('@', $controller);
+        $file = CONTROLLERS . ucfirst($parts[0]) . '.php';
 
         if (file_exists($file)) {
             require_once($file);
 
             // controller class
-            $controller = 'Controllers' . ucfirst($part[0]);
+            $controller = 'Controllers' . ucfirst($parts[0]);
 
-            if (class_exists($controller)) {
+            if (class_exists($controller))
                 $controller = new $controller();
-            } else {
-                $this->response->sendStatus(404);
-                $this->response->setContent(['error' => 'this route not found !', 'status_code' => 404]);
-            }
+            else
+				$this->sendNotFound();
 
             // set function in controller
-            if (isset($part[1])) {
-                $method = $part[1];
-                if (!method_exists($controller, $method)) {
-                    $this->response->sendStatus(404);
-                    $this->response->setContent(['error' => 'this route not found !', 'status_code' => 404]);
-                }
+            if (isset($parts[1])) {
+                $method = $parts[1];
+				
+                if (!method_exists($controller, $method))
+                    $this->sendNotFound();
+				
             } else {
                 $method = 'index';
             }
@@ -226,8 +227,13 @@ class Router {
             // call to controller
             if (is_callable([$controller, $method]))
                 return call_user_func([$controller, $method], $params);
-            else 
-                $this->response->setContent(['error' => 'this route not found !', 'status_code' => 404]);
+            else
+				$this->sendNotFound();
         }
     }
+	
+	private function sendNotFound() {
+		$this->response->sendStatus(404);
+		$this->response->setContent(['error' => 'Sorry This Route Not Found !', 'status_code' => 404]);
+	}
 }

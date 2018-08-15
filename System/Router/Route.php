@@ -2,11 +2,18 @@
 
 /**
  *
- * This file is part of simple-mvc-rest-api for PHP.
+ * This file is part of mvc-rest-api for PHP.
  *
  */
 namespace Router;
 
+/**
+ * Class Route For Save Route
+ *
+ * @author Mohammad Rahmani <rto1680@gmail.com>
+ *
+ * @package Router
+ */
 final class Route {
     
     /**
@@ -50,7 +57,7 @@ final class Route {
      *  check valid method
      */
     private function validateMethod(string $method) {
-        if (in_array($method, $this->list_method)) 
+        if (in_array(strtoupper($method), $this->list_method)) 
             return $method;
         
             throw new Exception('Invalid Method Name');

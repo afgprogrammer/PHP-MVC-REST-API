@@ -2,7 +2,7 @@
 
 /**
  *
- * This file is part of simple-mvc-rest-api for PHP.
+ * This file is part of mvc-rest-api for PHP.
  *
  */
 namespace Http;
@@ -57,10 +57,23 @@ class Request {
     }
 
     /**
+     *  Get $_POST parameter
+     *
+     * @param String $key
+     * @return string
+     */
+    public function post(String $key = '') {
+        if ($key != '')
+            return isset($_POST[$key]) ? $this->clean($_POST[$key]) : null;
+
+        return  $this->clean($_POST);
+    }
+
+    /**
      *  Get POST parameter
      *
      * @param String $key
-     * 
+     * @return string
      */
     public function input(String $key = '') {
         $postdata = file_get_contents("php://input");
@@ -71,19 +84,6 @@ class Request {
         } 
 
         return ($request);
-    }
-	
-	/**
-     *  Get $_POST parameter
-     *
-     * @param String $key
-     * 
-     */
-    public function post(String $key = '') {
-        if ($key != '')
-            return isset($_POST[$key]) ? $this->clean($_POST[$key]) : null;
-
-        return  $this->clean($_POST);
     }
 
     /**

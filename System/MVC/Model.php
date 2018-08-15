@@ -2,11 +2,18 @@
 
 /**
  *
- * This file is part of simple-mvc-rest-api for PHP.
+ * This file is part of mvc-rest-api for PHP.
  *
  */
 namespace MVC;
 
+/**
+ * Class Model, a port of MVC
+ *
+ * @author Mohammad Rahmani <rto1680@gmail.com>
+ *
+ * @package MVC
+ */
 class Model {
 
     /**
@@ -26,5 +33,7 @@ class Model {
             DATABASE['Name'],
             DATABASE['Port']    
         );
+
+        $this->pagination = $GLOBALS['pagination'];
     }
 }
