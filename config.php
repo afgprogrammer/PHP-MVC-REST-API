@@ -5,7 +5,7 @@
  * 
  *  Author: Mohammad Rahmani
  *  Email: rto1680@gmail.com
- *  WebPage: mohammadrahmani.com
+ *  WebPage: afgprogrammer.com
  *  
  */
 
@@ -21,7 +21,7 @@ define('MODELS', SCRIPT . 'Application/Models/');
 
 // Config Database
 define('DATABASE', [
-    'Port'   => '3307',
+    'Port'   => '3306',
     'Host'   => 'localhost',
     'Driver' => 'PDO',
     'Name'   => 'simple-mvc',
