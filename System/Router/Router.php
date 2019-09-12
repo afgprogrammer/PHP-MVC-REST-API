@@ -57,7 +57,7 @@ class Router {
     private $response;
 
     /**
-     *  constaruct
+     *  construct
      */
     public function __construct(string $url, string $method) {
         $this->url = rtrim($url, '/');
