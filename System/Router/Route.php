@@ -49,7 +49,7 @@ final class Route {
      */
     public function __construct(String $method, String $pattern, $callback) {
         $this->method = $this->validateMethod(strtoupper($method));
-        $this->pattern = $pattern;
+        $this->pattern = cleanUrl($pattern);
         $this->callback = $callback;
     }
 
@@ -60,7 +60,7 @@ final class Route {
         if (in_array(strtoupper($method), $this->list_method)) 
             return $method;
         
-            throw new Exception('Invalid Method Name');
+        throw new Exception('Invalid Method Name');
     }
 
     /**

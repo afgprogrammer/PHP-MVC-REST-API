@@ -118,7 +118,7 @@ class Router {
     private function getMatchRoutersByPattern($pattern) {
         $this->matchRouter = [];
         foreach ($pattern as $value) {
-            if ($this->dispatch($this->url, $value->getPattern()))
+            if ($this->dispatch(cleanUrl($this->url), $value->getPattern()))
                 array_push($this->matchRouter, $value);
         }
     }
