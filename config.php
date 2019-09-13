@@ -18,6 +18,7 @@ define('SCRIPT', str_replace('\\', '/', rtrim(__DIR__, '/')) . '/');
 define('SYSTEM', SCRIPT . 'System/');
 define('CONTROLLERS', SCRIPT . 'Application/Controllers/');
 define('MODELS', SCRIPT . 'Application/Models/');
+define('UPLOAD', SCRIPT . 'Upload/');
 
 // Config Database
 define('DATABASE', [
