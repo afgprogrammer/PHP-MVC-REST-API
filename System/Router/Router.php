@@ -126,7 +126,10 @@ class Router {
     /**
      *  dispatch url and pattern
      */
-    public function dispatch($url, $pattern) {
+    public function dispatch($uri, $pattern) {
+        $parsUrl = explode('?', $uri);
+        $url = $parsUrl[0];
+
         preg_match_all('@:([\w]+)@', $pattern, $params, PREG_PATTERN_ORDER);
 
         $patternAsRegex = preg_replace_callback('@:([\w]+)@', [$this, 'convertPatternToRegex'], $pattern);
