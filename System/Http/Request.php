@@ -120,7 +120,7 @@ class Request {
      * @return string
      */
     public function getUrl() {
-        return $this->server('QUERY_STRING');
+        return $this->server('REQUEST_URI');
     }
 
     /**
